@@ -38,10 +38,14 @@ export default [
             route: '/contas',
             icon: 'cil-puzzle',
             items: [
-            {
-                name: 'Contas Receber',
-                to: '/contas/listar/receber'
-            },
+                {
+                    name: 'Receber',
+                    to: '/contas/listar/receber'
+                },
+                {
+                    name: 'Pagar',
+                    to: '/contas/listar/pagar'
+                },
             ]
         },
         

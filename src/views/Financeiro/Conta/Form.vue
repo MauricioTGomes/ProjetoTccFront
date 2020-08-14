@@ -80,7 +80,7 @@
                 self.$set(self, 'editando', true)
 
                 self.$http.post(`/api/contas/get/${self.$route.params.idConta}`).then(resp => {
-                    self.$set(self, 'produto', resp.data)
+                    self.$set(self, 'conta', resp.data)
                 })
             }
         }
@@ -156,7 +156,7 @@
                         <CButton size="sm" color="success" @click="validarDados">
                             <CIcon name="cil-check-circle"/> Salvar
                         </CButton>&nbsp;
-                        <CButton size="sm" color="danger" to="/produtos/listar">
+                        <CButton size="sm" color="danger" :to="'/contas/listar/'+$route.params.tipo">
                             <CIcon name="cil-ban"/> Cancelar
                         </CButton>
                     </CCardFooter>

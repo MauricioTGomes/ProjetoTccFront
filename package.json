@@ -1,5 +1,5 @@
 {
-  "name": "projetoTccFront",
+  "name": "projeto-tcc-front",
   "version": "0.0.1",
   "author": {
     "name": "Mauricio Gomes"
@@ -9,8 +9,6 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e",
     "clearCache": "jest --clearCache",
     "release": "npm-run-all clearCache lint build test:unit test:e2e"
   },
