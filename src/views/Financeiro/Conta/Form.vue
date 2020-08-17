@@ -1,16 +1,12 @@
 <script>
     import VcPesquisa from '../../../components/Pesquisa';
     import VcParcela from '../../../components/Parcela';
+    import { fieldsPessoaPesquisa } from '../../../components/fields';
 
-    const fields = [
-        { key: 'nome_completo', label: 'Nome / Razão Social', _style:'width: 40%' },
-        { key: 'documento_completo', label: 'CPF / CNPJ', _style:'width: 30%' },
-        { key: 'nome_cidade_completo', label: 'Cidade', _style:'width: 30%' }
-    ]
     export default {
         data() {
             return {
-                fields,
+                fields: fieldsPessoaPesquisa,
                 modal: {
                     title: 'Atenção!',
                     type: 'danger',

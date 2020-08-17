@@ -66,6 +66,12 @@ export default {
                 }
             })
         }
+    },
+
+    mounted() {
+        this.$store.dispatch('logout');
+        this.$http.defaults.headers.common['Authorization'] = ""
+        return this.$router.push({name: 'login'})
     }
 }
 

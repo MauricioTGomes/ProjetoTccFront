@@ -1,14 +1,21 @@
 <template>
     <CCard>
         <CCardHeader>
-            <CCol col="6" sm="4" md="2" xl class="mb-3 mb-xl-0">
-                <CButton pressed block color="success" aria-pressed="true" :to="`/contas/adicionar/${this.$route.params.tipo}`">
-                   Adicionar
-                </CButton>
-            </CCol>
-
             <slot name="header">
                 <CIcon name="cil-grid"/> Contas {{ operacaoReceber ? 'receber' : 'pagar' }}
+                <div class="card-header-actions">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <CSwitch @update:checked="atualizaListagem" color="primary" variant="3d"/> Já fechada
+                        </div>
+
+                        <div class="col-sm-6">
+                            <CButton size="sm" pressed block color="success" aria-pressed="true" :to="`/contas/adicionar/${this.$route.params.tipo}`">
+                                <CIcon name="cil-plus"/> Adicionar
+                            </CButton>
+                        </div>
+                    </div>
+                </div>
             </slot>
         </CCardHeader>
         
@@ -52,7 +59,7 @@
                 <template #mostrar_detalhe="{_, index}">
                     <td class="py-2">
                         <CButton color="primary" variant="outline" square size="sm" @click="controlaDetalhes(index)">
-                            {{ arrayContas[index].mostrar_detalhe ? 'Esconder' : 'Mostrar' }}
+                            <CIcon :name="arrayContas[index].mostrar_detalhe ? 'cil-minus' : 'cil-plus'"/> {{ arrayContas[index].mostrar_detalhe ? 'Esconder' : 'Mostrar' }}
                         </CButton>
                     </td>
                 </template>
@@ -61,12 +68,16 @@
                     <CCollapse :show="arrayContas[index].mostrar_detalhe" :duration="collapseDuration">
                         <CCardBody>
                             <h4>{{ arrayContas[index].nome }}</h4>
-                            <CButton size="sm" class="ml-1" color="primary" @click="controlaOperacaoParcela(index, 'BAIXAR')">Baixar</CButton>
+                            <CButton size="sm" class="ml-1" color="primary" @click="controlaOperacaoParcela(index, 'BAIXAR')">
+                                <CIcon name="cil-plus"/>&nbsp;Baixar
+                            </CButton>
 
-                            <CButton color="warning" class="ml-1" size="sm" @click="controlaOperacaoParcela(index, 'ESTORNAR')">Estornar</CButton>
+                            <CButton color="warning" class="ml-1" size="sm" @click="controlaOperacaoParcela(index, 'ESTORNAR')">
+                                <CIcon name="cil-minus"/>&nbsp;Estornar
+                            </CButton>
 
                             <CButton size="sm" color="success" class="ml-1" :disabled="arrayContas[index].vlr_total !== arrayContas[index].vlr_restante" @click="$router.push({name: 'form.contas', params: {idConta: arrayContas[index].id}})">
-                                Editar
+                                <CIcon name="cil-pencil"/>&nbsp;Editar
                             </CButton>
 
                             <CButton size="sm" color="danger" :disabled="arrayContas[index].vlr_total !== arrayContas[index].vlr_restante" class="ml-1" @click="modal =
@@ -77,7 +88,7 @@
                                     title: 'Atenção!',
                                     type: 'danger'
                                 }">
-                                Excluir
+                                <CIcon name="cil-delete"/>&nbsp;Excluir
                             </CButton>
                         </CCardBody>
                     </CCollapse>
@@ -89,21 +100,14 @@
 
 <script>
 
-const fields = [
-    { key: 'data_emissao', label: 'Data emissão', _style:'width: 10%' },
-    { key: 'nome_pessoa', label: 'Cliente', _style:'width: 30%' },
-    { key: 'titulo', label: 'Título', _style:'width: 10%' },
-    { key: 'vlr_total', label: 'Total (R$)', _style:'width: 20%' },
-    { key: 'vlr_restante', label: 'Restante (R$)', _style:'width: 20%' },
-    { key: 'mostrar_detalhe',  label: '',  _style: 'width: 10%',  sorter: false, filter: false }
-]
+import { fieldsConta } from '../../../components/fields'
 
 export default {
     name: "Listar",
     data () {
         return {
             arrayContas: [],
-            fields,
+            fields: fieldsConta,
             fieldsParcela: [],
             collapseDuration: 0,
             modalParcelas: {
@@ -153,7 +157,7 @@ export default {
                     self.modal = {mensagem: resp.data.mensagem, showModal: true, conta: null, title: 'Atenção!', type: 'danger'}
                 } else {
                     self.modal = {mensagem: resp.data.mensagem, showModal: true, conta: null, title: 'Sucesso!', type: 'success'}
-                    self.$http.post('/api/contas/listar', {tipo: this.operacaoReceber ? 'R' : 'P'}).then(resp => self.$set(self, 'arrayContas', resp.data))
+                    self.atualizaListagem()
                 }
             })
         },
@@ -172,7 +176,7 @@ export default {
                 } else {
                     self.modal = {mensagem: resp.data.mensagem, showModal: true, parcela: null, title: 'Sucesso!', type: 'success'}
                 }
-                self.$http.post('/api/contas/listar', {tipo: this.operacaoReceber ? 'R' : 'P'}).then(resp => self.$set(self, 'arrayContas', resp.data))
+                self.atualizaListagem(self.modalParcelas.operacao !== 'BAIXAR')
             })
         },
 
@@ -186,11 +190,15 @@ export default {
                 type:  this.modalParcelas.operacao == 'BAIXAR' ? 'success' : 'danger'
             }
             this.modalParcelas.showModal = false
+        },
+
+        atualizaListagem(valorZerado = false) {
+            this.$http.post('/api/contas/listar', {tipo: this.$route.params.tipo == 'receber' ? 'R' : 'P', valorZerado}).then(resp => this.$set(this, 'arrayContas', resp.data))
         }
     },
 
     mounted() {
-        this.$http.post('/api/contas/listar', {tipo: this.$route.params.tipo == 'receber' ? 'R' : 'P'}).then(resp => this.$set(this, 'arrayContas', resp.data))
+        this.atualizaListagem()
     }
 }
 </script>

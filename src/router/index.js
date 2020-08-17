@@ -10,6 +10,12 @@ import FormProduto from '../views/Produto/Form'
 import ListarProduto from '../views/Produto/Listar'
 import ListarContas from '../views/Financeiro/Conta/Listar'
 import FormContas from '../views/Financeiro/Conta/Form'
+import ListarMovimentacao from '../views/Financeiro/Listar'
+import ListarPedido from '../views/Pedido/Listar'
+import FormPedido from '../views/Pedido/Form'
+import ListarUsuario from '../views/Usuario/Listar'
+import FormUsuario from '../views/Usuario/Form'
+
 import Login from '../views/Login'
 const Dashboard = () => import('@/views/Dashboard')
 
@@ -69,6 +75,31 @@ function configRoutes () {
                     path: '/contas/adicionar/:tipo',
                     name: 'form.contas',
                     component: FormContas
+                },
+                {
+                    path: '/pedidos/listar',
+                    name: 'listar.pedido',
+                    component: ListarPedido
+                },
+                {
+                    path: '/pedidos/adicionar',
+                    name: 'form.pedido',
+                    component: FormPedido
+                },
+                {
+                    path: '/usuarios/listar',
+                    name: 'listar.usuario',
+                    component: ListarUsuario
+                },
+                {
+                    path: '/usuarios/adicionar',
+                    name: 'form.usuario',
+                    component: FormUsuario
+                },
+                {
+                    path: '/financeiro/listar',
+                    name: 'listar.movimentacao',
+                    component: ListarMovimentacao
                 },
             ]
         },

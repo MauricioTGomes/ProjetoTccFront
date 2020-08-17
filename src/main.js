@@ -12,14 +12,15 @@ import axios from 'axios'
 import VueTheMask from 'vue-the-mask'
 import VueMoney from 'v-money';
 import vSelect from 'vue-select';
-
-
+import {formatForCalc, formatMoney} from './components/auxiliar';
 
 const http = axios.create({
     baseURL: 'http://localhost:8000/'
 })
 
 Vue.http = Vue.prototype.$http = http
+Vue.formatForCalc = Vue.prototype.$formatForCalc = formatForCalc
+Vue.formatMoney = Vue.prototype.$formatMoney = formatMoney
 
 Vue.config.performance = true
 Vue.component("v-select", vSelect);

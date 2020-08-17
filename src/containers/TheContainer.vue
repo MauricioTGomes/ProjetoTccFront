@@ -3,12 +3,6 @@
 
         <CSidebar fixed :minimize="minimize" :show="show" 
             @update:show="(value) => $store.commit('set', ['sidebarShow', value])">
-            
-            <CSidebarBrand class="d-md-down-none" to="/">
-                <CIcon class="c-sidebar-brand-full"  name="logo" size="custom-size"  :height="35" viewBox="0 0 556 134"/>
-                <CIcon class="c-sidebar-brand-minimized"  name="logo"  size="custom-size" :height="35" viewBox="0 0 110 134"/>
-            </CSidebarBrand>
-
             <CRenderFunction flat :content-to-render="$options.nav"/>
         
             <CSidebarMinimizer class="d-md-down-none" @click.native="$store.commit('set', ['sidebarMinimize', !minimize])"/>
@@ -18,25 +12,38 @@
              <CHeader fixed with-subheader light>
                 <CToggler in-header class="ml-3 d-lg-none" @click="$store.commit('toggleSidebarMobile')"/>
                 <CToggler in-header class="ml-3 d-md-down-none" @click="$store.commit('toggleSidebarDesktop')"/>
-            
-                <CHeaderNav class="mr-4">
-                    <CDropdown inNav class="c-header-nav-items" placement="bottom-end" add-menu-classes="pt-0" >
-                        <template #toggler>
-                            <CHeaderNavLink>
-                                <div class="c-avatar">
-                                <img src="img/avatars/6.jpg" class="c-avatar-img " />
-                                </div>
-                            </CHeaderNavLink>
-                        </template>
-                        
-                        <CDropdownItem>
-                            <CIcon name="cil-shield-alt" /> Perfil
-                        </CDropdownItem>
-                        <CDropdownItem  @click="logout">
-                            <CIcon name="cil-lock-locked"/> Sair
-                        </CDropdownItem>
-                    </CDropdown>
-                </CHeaderNav>
+                 <CHeaderBrand class="mx-auto d-lg-none" to="/"></CHeaderBrand>
+
+                 <CHeaderNav class="d-md-down-none mr-auto">
+                     <CHeaderNavItem class="px-3">
+                         <CHeaderNavLink to="/">
+                             Inicial
+                         </CHeaderNavLink>
+                     </CHeaderNavItem>
+                     <CHeaderNavItem class="px-3">
+                         <CHeaderNavLink to="/pedidos/listar" exact>
+                             Pedidos
+                         </CHeaderNavLink>
+                     </CHeaderNavItem>
+                     <CHeaderNavItem class="px-3">
+                         <CHeaderNavLink to="/pessoas/listar" exact>
+                             Pessoas
+                         </CHeaderNavLink>
+                     </CHeaderNavItem>
+                     <CHeaderNavItem class="px-3">
+                         <CHeaderNavLink to="/produtos/listar" exact>
+                             Produtos
+                         </CHeaderNavLink>
+                     </CHeaderNavItem>
+                 </CHeaderNav>
+
+                 <CHeaderNav class="mr-4">
+                     <CHeaderNavItem class="d-md-down-none mx-2">
+                         <CHeaderNavLink href="/api/auth/logout">
+                             <CIcon name="cil-lock-locked"/>
+                         </CHeaderNavLink>
+                     </CHeaderNavItem>
+                 </CHeaderNav>
             </CHeader>
 
 
