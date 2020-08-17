@@ -16,7 +16,8 @@ import {
     cilBan,
     cilGrid,
     cilJustifyCenter,
-    cilUserPlus
+    cilUserPlus,
+    cilSpeedometer
 } from '@coreui/icons'
 
 export const iconsSet = Object.assign(
@@ -39,7 +40,8 @@ export const iconsSet = Object.assign(
       cilBan,
       cilGrid,
       cilJustifyCenter,
-      cilUserPlus
+      cilUserPlus,
+      cilSpeedometer
   },
 
 )
