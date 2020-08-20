@@ -15,7 +15,7 @@ import vSelect from 'vue-select';
 import {formatForCalc, formatMoney} from './components/auxiliar';
 
 const http = axios.create({
-    baseURL: 'http://localhost:8000/'
+    baseURL: 'https://backendd-tcc.herokuapp.com/'//'http://localhost:8000/'
 })
 
 Vue.http = Vue.prototype.$http = http
