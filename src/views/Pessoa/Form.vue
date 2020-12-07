@@ -19,6 +19,10 @@
                     fantasia: '',
                     cnpj: '',
                     cpf: '',
+                    rg: '',
+                    ie: '',
+                    email: '',
+                    complemento: ''
                 },
                 editando: false
             }
@@ -51,7 +55,7 @@
                     this.modal.show = false
                 }
             },
-            
+
             validarDados () {
                 let camposValidar = [
                     {value: this.pessoa.endereco, nome: 'Endereço'},
@@ -120,14 +124,14 @@
             const self = this
 
             self.$store.dispatch('setTitle', 'Adicionar pessoa')
-            
+
             if (self.$route.params.idPessoa != undefined) {
                 self.$set(self, 'editando', true)
 
                 self.$http.post(`/api/pessoas/get/${self.$route.params.idPessoa}`).then(resp => {
                     let pessoa = resp.data
 
-                    pessoa.cidade = pessoa.cidade.nome_completo
+                    pessoa.cidade = pessoa.nome_completo
                     pessoa.fornecedor = pessoa.fornecedor == '1'
                     pessoa.cliente = pessoa.cliente == '1'
                     self.$set(self, 'pessoa', pessoa)
@@ -224,7 +228,7 @@
                                 <div class="col-sm-4" v-if="pessoa.tipo == 'JURIDICO'">
                                     <CInput label="Inscrição estadual" v-model="pessoa.ie"/>
                                 </div>
-                            
+
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Telefone</label>
@@ -232,14 +236,14 @@
                                                 v-model="pessoa.fone" name="fone"/>
                                     </div>
                                 </div>
-                            
+
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <CInput label="E-mail" v-model="pessoa.email"/>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <h3>Endereço</h3>
                             <div class="row">
                                 <div class="col-sm-4">

@@ -39,7 +39,7 @@ const fieldsItem = [
 ]
 
 const fieldsPedido = [
-    { key: 'created_at', label: 'Emissão', _style:'width: 10%' },
+    { key: 'created_at_f', label: 'Emissão', _style:'width: 10%' },
     { key: 'status_entrega', label: 'Entrega', _style:'width: 10%', filter: false },
     { key: 'numero', label: 'Número', _style:'width: 10%' },
     { key: 'nome_pessoa', label: 'Cliente', _style:'width: 35%' },

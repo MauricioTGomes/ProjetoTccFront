@@ -19,7 +19,7 @@
                 </div>
             </slot>
         </CCardHeader>
-        
+
         <CModal class="text-center" :title="modal.title" :color="modal.type" :show.sync="modal.showModal">
             {{ modal.mensagem }}
             <template #footer>
@@ -33,7 +33,7 @@
                 :noItemsView="{noResults: 'Nenhum resultado encontrado', noItems: 'Nenhum resultado encontrado' }"
                 :items="arrayPedidos" :fields="fieldsPedido" column-filter
                 :table-filter="{label: 'Filtro: ', placeholder: 'Pesquisar...'}"
-                :items-per-page-select="{label: 'Registros por página'}" 
+                :items-per-page-select="{label: 'Registros por página'}"
                 :items-per-page="5" hover sorter pagination>
 
                 <template #status_faturamento="{_, index}">
@@ -44,7 +44,7 @@
 
                 <template #status_entrega="{_, index}">
                     <td class="py-2">
-                        {{ arrayPedidos[index].faturado == 0 ? 'Não informado' : (arrayPedidos[index].status == 0 ? arrayPedidos[index].data_entrega : `Entregue em (${arrayPedidos[index].data_entrega_realizada})`) }}
+                        {{ arrayPedidos[index].faturado == 0 ? 'Não informado' : ( `Previsto em (${arrayPedidos[index].data_entrega_f})\n${ (arrayPedidos[index].data_entrega_realizada_f == null ? 'Não entregue' : 'Entregue em (' + arrayPedidos[index].data_entrega_realizada_f + ')') }`) }}
                     </td>
                 </template>
 
@@ -65,15 +65,10 @@
                                 <CIcon :name="arrayPedidos[index].status == 0 ? 'cil-calendar' : 'cil-calendar-check'"/>&nbsp;{{ arrayPedidos[index].status == 0 ? 'Marcar como entregue' : 'Marcar como não entregue' }}
                             </CButton>
 
-                            <CButton :disabled="arrayPedidos[index].faturado == '1'" size="sm" color="success" class="ml-1"
-                                     @click="$router.push({name: 'form.pedido', params: {idPedido: arrayPedidos[index].id}})">
-                                <CIcon name="cil-pencil"/>&nbsp;Editar
-                            </CButton>
-
-                            <CButton size="sm" color="danger" class="ml-1" @click="modal = 
+                            <CButton size="sm" color="danger" class="ml-1" @click="modal =
                                 {
                                     mensagem: 'Deseja realmente eliminar este pedido? Esta operação não podera ser desfeita.',
-                                    showModal: true, 
+                                    showModal: true,
                                     pedido: arrayPedidos[index],
                                     title: 'Atenção!',
                                     type: 'danger'
@@ -127,7 +122,7 @@ export default {
                 }
             })
         },
-        
+
         controlaDetalhes(index) {
             this.$set(this.arrayPedidos[index], 'mostrar_detalhe', !this.arrayPedidos[index].mostrar_detalhe)
             this.collapseDuration = 300

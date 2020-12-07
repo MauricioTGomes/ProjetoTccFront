@@ -38,7 +38,7 @@ export default [
             _name: 'CSidebarNavTitle',
             _children: ['Financeiro']
         },
-        {
+        /*{
             _name: 'CSidebarNavDropdown',
             name: 'Contas',
             route: '/contas',
@@ -55,7 +55,7 @@ export default [
                     icon: 'cil-minus',
                 },
             ]
-        },
+        },*/
         {
             _name: 'CSidebarNavItem',
             name: 'Movimentação financeira',

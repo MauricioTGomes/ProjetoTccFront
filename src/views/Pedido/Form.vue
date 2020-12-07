@@ -28,7 +28,7 @@
                     valor_liquido: '0,00',
                     valor_total: '0,00',
                     valor_desconto: '0,00',
-                    faturado: false,
+                    faturado: true,
                     pessoa: {},
                     formaPagamento: {
                         valor_pago: '0,00',
@@ -139,7 +139,7 @@
                     }
                 })
             },
-              
+
             fechaModal() {
                 if (this.modal.redirect) {
                     return this.$router.push('/pedidos/listar')
@@ -275,13 +275,6 @@
                                 <div class="col-sm-4" v-if="pedido.faturado">
                                     <CInput label="Data de entrega" type="date" v-model="pedido.data_entrega"/>
                                 </div>
-
-                                <div class="col-sm-4 col-xs-4" style="margin-top: 35px">
-                                    <label class="csscheckbox csscheckbox-danger">
-                                        <input v-model="pedido.faturado" name="fornecedor"
-                                               type="checkbox"> <span></span>&nbsp;&nbsp;Faturar
-                                    </label>
-                                </div>
                             </div>
 
                             <CCol sm="12" v-if="pedido.faturado">
@@ -325,7 +318,7 @@
 
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <CSelect label="Forma de pagamento" @update:value="(value) => pedido.formaPagamento.tipo = value" :value="pedido.formaPagamento.tipo" :horizontal="false" :options="[{value: 'VISTA', label: 'Á vista'},{value: 'PRAZO', label: 'Á prazo'}]"/>
+                                                <CSelect label="Forma de pagamento" @update:value="(value) => pedido.formaPagamento.tipo = value" :value="pedido.formaPagamento.tipo" :horizontal="false" :options="[{value: 'VISTA', label: 'Á vista'}]"/>
                                             </div>
 
                                             <div class="col-sm-4">
