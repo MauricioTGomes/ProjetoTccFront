@@ -56,7 +56,7 @@ const fieldsUser = [
 ]
 
 const fieldsMovimentacao = [
-    { key: 'created_at', label: 'Data e Hora', _style:'width: 10%' },
+    { key: 'created_at_f', label: 'Data e Hora', _style:'width: 10%' },
     { key: 'descricao', label: 'Descrição', _style:'width: 55%' },
     { key: 'status_movimentacao', label: 'Operação', _style:'width: 15%',  sorter: false, filter: false  },
     { key: 'valor', label: 'Valor (R$)', _style:'width: 10%' },
